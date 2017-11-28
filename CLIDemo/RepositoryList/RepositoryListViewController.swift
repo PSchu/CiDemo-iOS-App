@@ -16,6 +16,7 @@ protocol RepositoryCellData {
 }
 
 protocol RepositoryListViewControllerViewModel {
+    var title: String { get }
     var numberOfSections: Int { get }
     func numberOfItems(in section: Int) -> Int
     func data(for indexPath: IndexPath) -> RepositoryCellData
@@ -33,6 +34,7 @@ class RepositoryListViewController: UITableViewController {
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
         super.init(style: .plain)
+        title = viewModel.title
         tableView.register(RepositoryTableViewCell.self, forCellReuseIdentifier: RepositoryTableViewCell.reuseIdentifier)
         
         self.tableView.reactive.reloadData <~ viewModel.newDataSignal

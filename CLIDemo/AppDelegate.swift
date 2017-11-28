@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
         window?.makeKeyAndVisible()
-        window?.rootViewController = RepositoryListViewController(viewModel: RepositoryListViewModel())
+        window?.rootViewController = UINavigationController(rootViewController: RepositoryListViewController(viewModel: RepositoryListViewModel()))
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

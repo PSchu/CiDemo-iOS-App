@@ -16,9 +16,10 @@ extension GHRepository: RepositoryCellData {}
 
 class RepositoryListViewModel {
     let apiProvider: MoyaProvider<GitHubApi>
+    let username: String = "PSchu"
     
     private lazy var dataSignalProducer: SignalProducer<[GHRepository], AnyError> = self.apiProvider.reactive
-        .request(.repositories(.user(name: "PSchu")))
+        .request(.repositories(.user(name: self.username)))
         .filterSuccessfulStatusAndRedirectCodes()
         .unbox(array: GHRepository.self)
     
@@ -35,6 +36,9 @@ class RepositoryListViewModel {
 }
 
 extension RepositoryListViewModel: RepositoryListViewControllerViewModel {
+    var title: String {
+        return "Repositories of: \(self.username)"
+    }
     var newDataSignal: Signal<Void, NoError> {
         return repositoryData.signal
             .skip { $0.isEmpty }
