@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import Moya
 
 class ViewController: UIViewController {
-
+    let apiProvider = GitHubApiProvider()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +21,16 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        apiProvider.request(.repositories(.user(name: "pschu"))) { (response) in
+            switch response {
+            case .failure(let error):
+                print("\(error)")
+            case .success(let response):
+                print("\(String(data: response.data, encoding: .utf8) ?? "No Data")")
+            }
+        }
+    }
 
 }
 
