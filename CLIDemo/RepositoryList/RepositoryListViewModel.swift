@@ -12,17 +12,44 @@ import Moya
 import Unbox
 import Result
 
+extension GHRepository: RepositoryCellData {}
+
 class RepositoryListViewModel {
     let apiProvider: MoyaProvider<GitHubApi>
     
-    lazy var dataSignal: SignalProducer<[GHRepository], AnyError> = self.apiProvider.reactive
+    private lazy var dataSignalProducer: SignalProducer<[GHRepository], AnyError> = self.apiProvider.reactive
         .request(.repositories(.user(name: "PSchu")))
         .filterSuccessfulStatusAndRedirectCodes()
         .unbox(array: GHRepository.self)
+    
+    private lazy var repositoryData: Property<[GHRepository]> = Property(initial: [], then:
+        self.dataSignalProducer
+            .flatMapError { _ -> SignalProducer<[GHRepository], NoError> in
+                return SignalProducer.empty
+            }
+    )
     
     init(apiProvider: MoyaProvider<GitHubApi> = GitHubApiProvider()) {
         self.apiProvider = apiProvider
     }
 }
 
-extension RepositoryListViewModel: RepositoryListViewControllerViewModel {}
+extension RepositoryListViewModel: RepositoryListViewControllerViewModel {
+    var newDataSignal: Signal<Void, NoError> {
+        return repositoryData.signal
+            .skip { $0.isEmpty }
+            .map { _ in () }
+    }
+    
+    var numberOfSections: Int {
+        return 1
+    }
+    
+    func numberOfItems(in section: Int) -> Int {
+        return repositoryData.value.count
+    }
+    
+    func data(for indexPath: IndexPath) -> RepositoryCellData {
+        return repositoryData.value[indexPath.row]
+    }
+}
