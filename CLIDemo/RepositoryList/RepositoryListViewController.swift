@@ -19,9 +19,18 @@ class RepositoryListViewController: UITableViewController {
     init(viewModel: ViewModel) {
         self.viewModel = viewModel
         super.init(style: .plain)
+        view.backgroundColor = .blue
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 0
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
     }
 }
