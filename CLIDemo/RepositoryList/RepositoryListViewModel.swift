@@ -16,6 +16,10 @@ extension GHRepository: RepositoryCellData {}
 
 enum RepositoryFilter {
     case notForked
+    
+    func repConforms(_ rep: GHRepository) -> Bool {
+        return !rep.isFork
+    }
 }
 
 class RepositoryListViewModel {
@@ -33,6 +37,11 @@ class RepositoryListViewModel {
             .flatMapError { _ -> SignalProducer<[GHRepository], NoError> in
                 return SignalProducer.empty
             }
+            .combineLatest(with: filter)
+            .map({ (reps, filter) -> [GHRepository] in
+                guard let filter = filter else { return reps }
+                return reps.filter(filter.repConforms)
+            })
     )
     
     init(apiProvider: MoyaProvider<GitHubApi> = GitHubApiProvider()) {

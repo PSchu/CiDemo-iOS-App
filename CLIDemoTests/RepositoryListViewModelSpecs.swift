@@ -54,6 +54,7 @@ class RepositoryListViewModelSpecs: QuickSpec {
                 it("a filter to only show not forked repositories") {
                     let viewModel = RepositoryListViewModel(apiProvider: GitHubApiImediateMockProvider())
                     viewModel.setFilter(.notForked)
+                    expect(viewModel.data.value).toNot(beEmpty())
                     expect(viewModel.data.value).toNot(containElementSatisfying({ $0.isFork }))
                 }
             }
