@@ -36,24 +36,11 @@ class RepositoryListViewModel {
 }
 
 extension RepositoryListViewModel: RepositoryListViewControllerViewModel {
+    var data: Property<[RepositoryCellData]> {
+        return repositoryData.map { $0 as [RepositoryCellData] }
+    }
+    
     var title: String {
         return "Repositories of: \(self.username)"
-    }
-    var newDataSignal: Signal<Void, NoError> {
-        return repositoryData.signal
-            .skip { $0.isEmpty }
-            .map { _ in () }
-    }
-    
-    var numberOfSections: Int {
-        return 1
-    }
-    
-    func numberOfItems(in section: Int) -> Int {
-        return repositoryData.value.count
-    }
-    
-    func data(for indexPath: IndexPath) -> RepositoryCellData {
-        return repositoryData.value[indexPath.row]
     }
 }

@@ -16,11 +16,8 @@ protocol RepositoryCellData {
 }
 
 protocol RepositoryListViewControllerViewModel {
+    var data: Property<[RepositoryCellData]> { get }
     var title: String { get }
-    var numberOfSections: Int { get }
-    func numberOfItems(in section: Int) -> Int
-    func data(for indexPath: IndexPath) -> RepositoryCellData
-    var newDataSignal: Signal<Void, NoError> { get }
 }
 
 class RepositoryListViewController: UITableViewController {
@@ -37,7 +34,7 @@ class RepositoryListViewController: UITableViewController {
         title = viewModel.title
         tableView.register(RepositoryTableViewCell.self, forCellReuseIdentifier: RepositoryTableViewCell.reuseIdentifier)
         
-        self.tableView.reactive.reloadData <~ viewModel.newDataSignal
+        self.tableView.reactive.reloadData <~ viewModel.data.signal.skip(while: { $0.isEmpty } ).map( { _ in ()} )
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -45,16 +42,16 @@ class RepositoryListViewController: UITableViewController {
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.numberOfSections
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfItems(in: section)
+        return viewModel.data.value.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: RepositoryTableViewCell.reuseIdentifier, for: indexPath)
-        cell.textLabel?.text = viewModel.data(for: indexPath).name
+        cell.textLabel?.text = viewModel.data.value[indexPath.item].name
         return cell
     }
 }
