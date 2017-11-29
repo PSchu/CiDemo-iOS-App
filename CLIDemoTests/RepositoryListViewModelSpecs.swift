@@ -13,6 +13,7 @@ import Moya
 import ReactiveCocoa
 import ReactiveSwift
 import Result
+import Unbox
 
 class GitHubApiDelayedMockProvider:  MoyaProvider<GitHubApi> {
     init() {
@@ -27,6 +28,15 @@ class GitHubApiImediateMockProvider:  MoyaProvider<GitHubApi> {
 }
 
 class RepositoryListViewModelSpecs: QuickSpec {
+    let testRepos: [GHRepository] = {
+        let testData = GitHubApi.repositories(.user(name: "")).sampleData
+        do {
+            return try unbox(data: testData)
+        } catch let error {
+            fatalError("Error occured while unboxing TestData: \(error)")
+        }
+    }()
+    
     override func spec() {
         describe("A RepositoryListViewModel") {
             context("the Data Property") {
@@ -37,6 +47,7 @@ class RepositoryListViewModelSpecs: QuickSpec {
                 it("after some time for a network Call it contains data") {
                     let viewModel = RepositoryListViewModel(apiProvider: GitHubApiDelayedMockProvider())
                     expect(viewModel.data.value).toEventuallyNot(beEmpty(), timeout: 3)
+                    expect(viewModel.data.value.count).toEventually(equal(self.testRepos.count), timeout: 3)
                 }
             }
             context("a filter can be set") {
