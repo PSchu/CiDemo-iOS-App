@@ -13,11 +13,13 @@ import enum Result.NoError
 
 protocol RepositoryCellData {
     var name: String { get }
+    var isFork: Bool { get }
 }
 
 protocol RepositoryListViewControllerViewModel {
     var data: Property<[RepositoryCellData]> { get }
     var title: String { get }
+    func setFilter(_ filter: RepositoryFilter?)
 }
 
 class RepositoryListViewController: UITableViewController {

@@ -14,9 +14,14 @@ import Result
 
 extension GHRepository: RepositoryCellData {}
 
+enum RepositoryFilter {
+    case notForked
+}
+
 class RepositoryListViewModel {
     let apiProvider: MoyaProvider<GitHubApi>
     let username: String = "PSchu"
+    var filter: MutableProperty<RepositoryFilter?> = MutableProperty(nil)
     
     private lazy var dataSignalProducer: SignalProducer<[GHRepository], AnyError> = self.apiProvider.reactive
         .request(.repositories(.user(name: self.username)))
@@ -36,6 +41,10 @@ class RepositoryListViewModel {
 }
 
 extension RepositoryListViewModel: RepositoryListViewControllerViewModel {
+    func setFilter(_ filter: RepositoryFilter?) {
+        self.filter.value = filter
+    }
+    
     var data: Property<[RepositoryCellData]> {
         return repositoryData.map { $0 as [RepositoryCellData] }
     }
