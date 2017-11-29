@@ -50,12 +50,17 @@ class RepositoryListViewModelSpecs: QuickSpec {
                     expect(viewModel.data.value.count).toEventually(equal(self.testRepos.count), timeout: 3)
                 }
             }
-            context("a filter can be set") {
-                it("a filter to only show not forked repositories") {
-                    let viewModel = RepositoryListViewModel(apiProvider: GitHubApiImediateMockProvider())
+            context("a filter can be") {
+                let viewModel = RepositoryListViewModel(apiProvider: GitHubApiImediateMockProvider())
+                it("set to only show not forked repositories") {
                     viewModel.setFilter(.notForked)
                     expect(viewModel.data.value).toNot(beEmpty())
                     expect(viewModel.data.value).toNot(containElementSatisfying({ $0.isFork }))
+                }
+                
+                it("reset") {
+                    viewModel.setFilter(nil)
+                    expect(viewModel.data.value.count).to(equal(self.testRepos.count))
                 }
             }
         }
