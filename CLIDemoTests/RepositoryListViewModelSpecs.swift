@@ -75,6 +75,17 @@ class RepositoryListViewModelSpecs: QuickSpec {
                     expect(viewModel.repositoryData.value.count).to(equal(self.testRepos.count))
                 }
             }
+            context("can sort its data") {
+                let viewModel = RepositoryListViewModel(apiProvider: GitHubApiImediateMockProvider())
+                it("after the most starred") {
+                    viewModel.setSortModus(.mostStared)
+                    for (index, higherStarCountRep) in viewModel.repositoryData.value.enumerated() {
+                        for (secondIndex, lowerStarCountRep) in viewModel.repositoryData.value.enumerated() where secondIndex < index {
+                            expect(higherStarCountRep.numberOfStars).to(beGreaterThanOrEqualTo(lowerStarCountRep.numberOfStars))
+                        }
+                    }
+                }
+            }
         }
     }
 }

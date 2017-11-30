@@ -14,6 +14,10 @@ import Result
 
 extension GHRepository: RepositoryCellData {}
 
+enum RepositorySortModus {
+    case mostStared
+}
+
 enum RepositoryFilter {
     case notForked
     case hasWiki
@@ -72,6 +76,10 @@ class RepositoryListViewModel {
 extension RepositoryListViewModel: RepositoryListViewControllerViewModel {
     func setFilter(_ filter: RepositoryFilter?) {
         self.filter.value = filter
+    }
+    
+    func setSortModus(_ sortModus: RepositorySortModus?) {
+        
     }
     
     var data: Property<[RepositoryCellData]> {
