@@ -15,20 +15,30 @@ import Result
 extension GHRepository: RepositoryCellData {}
 
 enum RepositorySortModus {
-    case mostStared
+    case mostStarred
     case mostWatched
     case mostForked
     
     func sortPredicate(_ lhs: GHRepository, _ rhs: GHRepository) -> Bool {
         switch self {
         case .mostForked:
-            return lhs.numberOfForks < rhs.numberOfForks
-        case .mostStared:
-            return lhs.numberOfStars < rhs.numberOfStars
+            return lhs.numberOfForks > rhs.numberOfForks
+        case .mostStarred:
+            return lhs.numberOfStars > rhs.numberOfStars
         case .mostWatched:
-            return lhs.numberOfWatchers < rhs.numberOfWatchers
+            return lhs.numberOfWatchers > rhs.numberOfWatchers
         }
-        
+    }
+    
+    var title: String {
+        switch self {
+        case .mostForked:
+            return "Most Forked"
+        case .mostStarred:
+            return "Most Starred"
+        case .mostWatched:
+            return "Most Wached"
+        }
     }
 }
 
@@ -62,7 +72,7 @@ enum RepositoryFilter {
 
 class RepositoryListViewModel {
     let apiProvider: MoyaProvider<GitHubApi>
-    let username: String = "PSchu"
+    let username: String = "krzysztofzablocki"
     var filter: MutableProperty<RepositoryFilter?> = MutableProperty(nil)
     var sortModus: MutableProperty<RepositorySortModus?> = MutableProperty(nil)
     

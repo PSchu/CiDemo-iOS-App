@@ -78,9 +78,9 @@ class RepositoryListViewModelSpecs: QuickSpec {
             context("can sort its data") {
                 let viewModel = RepositoryListViewModel(apiProvider: GitHubApiImediateMockProvider())
                 it("after the most starred") {
-                    viewModel.setSortModus(.mostStared)
+                    viewModel.setSortModus(.mostStarred)
                     for (index, higherStarCountRep) in viewModel.sortedAndFilterdData.value.enumerated() {
-                        for (secondIndex, lowerStarCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex < index {
+                        for (secondIndex, lowerStarCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex > index {
                             expect(higherStarCountRep.numberOfStars).to(beGreaterThanOrEqualTo(lowerStarCountRep.numberOfStars))
                         }
                     }
@@ -88,7 +88,7 @@ class RepositoryListViewModelSpecs: QuickSpec {
                 it("after the most Watched") {
                     viewModel.setSortModus(.mostWatched)
                     for (index, higherWatchedCountRep) in viewModel.sortedAndFilterdData.value.enumerated() {
-                        for (secondIndex, lowerWatcherCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex < index {
+                        for (secondIndex, lowerWatcherCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex > index {
                             expect(higherWatchedCountRep.numberOfWatchers).to(beGreaterThanOrEqualTo(lowerWatcherCountRep.numberOfWatchers))
                         }
                     }
@@ -96,7 +96,7 @@ class RepositoryListViewModelSpecs: QuickSpec {
                 it("after the most Forked") {
                     viewModel.setSortModus(.mostForked)
                     for (index, higherForkedCountRep) in viewModel.sortedAndFilterdData.value.enumerated() {
-                        for (secondIndex, lowerForkedCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex < index {
+                        for (secondIndex, lowerForkedCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex > index {
                             expect(higherForkedCountRep.numberOfForks).to(beGreaterThanOrEqualTo(lowerForkedCountRep.numberOfForks))
                         }
                     }
