@@ -29,6 +29,17 @@ enum RepositoryFilter {
             return rep.hasPages
         }
     }
+    
+    var title: String {
+        switch self {
+        case .notForked:
+            return "Not a Fork"
+        case .hasWiki:
+            return "has a Wiki"
+        case .hasPages:
+            return "has Pages"
+        }
+    }
 }
 
 class RepositoryListViewModel {

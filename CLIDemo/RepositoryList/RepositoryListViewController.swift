@@ -39,10 +39,27 @@ class RepositoryListViewController: UITableViewController {
         tableView.register(RepositoryTableViewCell.self, forCellReuseIdentifier: RepositoryTableViewCell.reuseIdentifier)
         
         self.tableView.reactive.reloadData <~ viewModel.data.signal.skip(while: { $0.isEmpty } ).map( { _ in ()} )
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(showFilterOptions))
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func showFilterOptions() {
+        let sheet = UIAlertController(title: "Filter", message: nil, preferredStyle: .actionSheet)
+        sheet.addAction(alertAction(for: .notForked))
+        sheet.addAction(alertAction(for: .hasWiki))
+        sheet.addAction(alertAction(for: .hasPages))
+        sheet.addAction(alertAction(for: nil))
+        present(sheet, animated: true, completion: nil)
+    }
+    
+    func alertAction(for repFilter: RepositoryFilter?) -> UIAlertAction {
+        return UIAlertAction(title: repFilter?.title ?? "No Filter", style: UIAlertActionStyle.default, handler: { [viewModel] _ in
+            viewModel.setFilter(repFilter)
+        })
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
