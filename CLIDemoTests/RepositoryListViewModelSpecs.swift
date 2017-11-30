@@ -39,38 +39,38 @@ class RepositoryListViewModelSpecs: QuickSpec {
     
     override func spec() {
         describe("A RepositoryListViewModel") {
-            context("the Data Property") {
+            context("has a Data Property that ") {
                 it("starts with an empty Array") {
                     let viewModel = RepositoryListViewModel(apiProvider: GitHubApiDelayedMockProvider())
                     expect(viewModel.data.value).to(beEmpty())
                 }
-                it("after some time for a network Call it contains data") {
+                it("after some time for a network Call contains data") {
                     let viewModel = RepositoryListViewModel(apiProvider: GitHubApiDelayedMockProvider())
                     expect(viewModel.data.value).toEventuallyNot(beEmpty(), timeout: 3)
                     expect(viewModel.data.value.count).toEventually(equal(self.testRepos.count), timeout: 3)
                 }
             }
-            context("a filter can be") {
+            context("can filter its data") {
                 let viewModel = RepositoryListViewModel(apiProvider: GitHubApiImediateMockProvider())
-                it("set to only show not forked repositories") {
+                it("to only show not forked repositories") {
                     viewModel.setFilter(.notForked)
                     expect(viewModel.data.value).toNot(beEmpty())
                     expect(viewModel.data.value).toNot(containElementSatisfying({ $0.isFork }))
                 }
                 
-                it("set to only show repositories with Wiki's") {
+                it("to only show repositories with Wiki's") {
                     viewModel.setFilter(.hasWiki)
                     expect(viewModel.data.value).toNot(beEmpty())
                     expect(viewModel.data.value).toNot(containElementSatisfying({ !$0.hasWiki }))
                 }
                 
-                it("set to only show repositories with Pages") {
+                it("to only show repositories with Pages") {
                     viewModel.setFilter(.hasPages)
                     expect(viewModel.data.value).toNot(beEmpty())
                     expect(viewModel.data.value).toNot(containElementSatisfying({ !$0.hasPages }))
                 }
                 
-                it("reset") {
+                it("an reset it to show all") {
                     viewModel.setFilter(nil)
                     expect(viewModel.data.value.count).to(equal(self.testRepos.count))
                 }
