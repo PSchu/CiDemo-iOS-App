@@ -87,17 +87,17 @@ class RepositoryListViewModelSpecs: QuickSpec {
                 }
                 it("after the most Watched") {
                     viewModel.setSortModus(.mostWatched)
-                    for (index, higherStarCountRep) in viewModel.sortedAndFilterdData.value.enumerated() {
-                        for (secondIndex, lowerStarCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex < index {
-                            expect(higherStarCountRep.numberOfWatchers).to(beGreaterThanOrEqualTo(lowerStarCountRep.numberOfWatchers))
+                    for (index, higherWatchedCountRep) in viewModel.sortedAndFilterdData.value.enumerated() {
+                        for (secondIndex, lowerWatcherCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex < index {
+                            expect(higherWatchedCountRep.numberOfWatchers).to(beGreaterThanOrEqualTo(lowerWatcherCountRep.numberOfWatchers))
                         }
                     }
                 }
                 it("after the most Forked") {
-                    viewModel.setSortModus(.mostWatched)
-                    for (index, higherStarCountRep) in viewModel.sortedAndFilterdData.value.enumerated() {
-                        for (secondIndex, lowerStarCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex < index {
-                            expect(higherStarCountRep.numberOfForks).to(beGreaterThanOrEqualTo(lowerStarCountRep.numberOfForks))
+                    viewModel.setSortModus(.mostForked)
+                    for (index, higherForkedCountRep) in viewModel.sortedAndFilterdData.value.enumerated() {
+                        for (secondIndex, lowerForkedCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex < index {
+                            expect(higherForkedCountRep.numberOfForks).to(beGreaterThanOrEqualTo(lowerForkedCountRep.numberOfForks))
                         }
                     }
                 }
