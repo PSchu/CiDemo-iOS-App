@@ -20,7 +20,15 @@ enum RepositorySortModus {
     case mostForked
     
     func sortPredicate(_ lhs: GHRepository, _ rhs: GHRepository) -> Bool {
-        return lhs.numberOfStars < rhs.numberOfStars
+        switch self {
+        case .mostForked:
+            return lhs.numberOfForks < rhs.numberOfForks
+        case .mostStared:
+            return lhs.numberOfStars < rhs.numberOfStars
+        case .mostWatched:
+            return lhs.numberOfWatchers < rhs.numberOfWatchers
+        }
+        
     }
 }
 
