@@ -16,6 +16,8 @@ extension GHRepository: RepositoryCellData {}
 
 enum RepositorySortModus {
     case mostStared
+    case mostWatched
+    case mostForked
     
     func sortPredicate(_ lhs: GHRepository, _ rhs: GHRepository) -> Bool {
         return lhs.numberOfStars < rhs.numberOfStars
