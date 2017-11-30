@@ -16,9 +16,18 @@ extension GHRepository: RepositoryCellData {}
 
 enum RepositoryFilter {
     case notForked
+    case hasWiki
+    case hasPages
     
     func repConforms(_ rep: GHRepository) -> Bool {
-        return !rep.isFork
+        switch self {
+        case .notForked:
+            return !rep.isFork
+        case .hasWiki:
+            return rep.hasWiki
+        case .hasPages:
+            return rep.hasPages
+        }
     }
 }
 

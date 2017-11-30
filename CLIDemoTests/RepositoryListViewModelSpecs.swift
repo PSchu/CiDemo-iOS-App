@@ -58,6 +58,18 @@ class RepositoryListViewModelSpecs: QuickSpec {
                     expect(viewModel.data.value).toNot(containElementSatisfying({ $0.isFork }))
                 }
                 
+                it("set to only show repositories with Wiki's") {
+                    viewModel.setFilter(.hasWiki)
+                    expect(viewModel.data.value).toNot(beEmpty())
+                    expect(viewModel.data.value).toNot(containElementSatisfying({ !$0.hasWiki }))
+                }
+                
+                it("set to only show repositories with Pages") {
+                    viewModel.setFilter(.hasPages)
+                    expect(viewModel.data.value).toNot(beEmpty())
+                    expect(viewModel.data.value).toNot(containElementSatisfying({ !$0.hasPages }))
+                }
+                
                 it("reset") {
                     viewModel.setFilter(nil)
                     expect(viewModel.data.value.count).to(equal(self.testRepos.count))

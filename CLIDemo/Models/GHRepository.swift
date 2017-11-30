@@ -14,16 +14,21 @@ struct GHRepository: Unboxable {
     let name: String
     let description: String
     let isFork: Bool
+    let hasWiki: Bool
+    let hasPages: Bool
     let url: URL
     let numberOfStars: Int
     let numberOfForks: Int
     let numberOfWatchers: Int
+    
     
     init(unboxer: Unboxer) throws {
         id = try unboxer.unbox(key: "id")
         name = try unboxer.unbox(key: "name")
         description = try unboxer.unbox(key: "description")
         isFork = try unboxer.unbox(key: "fork")
+        hasWiki = try unboxer.unbox(key: "has_wiki")
+        hasPages = try unboxer.unbox(key: "has_pages")
         url = try unboxer.unbox(key: "url")
         numberOfStars = try unboxer.unbox(key: "stargazers_count")
         numberOfForks = try unboxer.unbox(key: "forks_count")

@@ -109,6 +109,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		E45CF5F61FD00153005AF92F /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				E46BD5861FCC7E4200033C88 /* GitHubApi.swift */,
+			);
+			path = Api;
+			sourceTree = "<group>";
+		};
 		E46BD55A1FCC7CD500033C88 = {
 			isa = PBXGroup;
 			children = (
@@ -132,6 +140,7 @@
 		E46BD5651FCC7CD500033C88 /* CLIDemo */ = {
 			isa = PBXGroup;
 			children = (
+				E45CF5F61FD00153005AF92F /* Api */,
 				E411C8DC1FCD7FC200AC6166 /* Extensions */,
 				E46BD58F1FCCC7F600033C88 /* Models */,
 				E46BD5881FCCC7A800033C88 /* RepositoryList */,
@@ -139,7 +148,6 @@
 				E46BD56D1FCC7CD500033C88 /* Assets.xcassets */,
 				E46BD56F1FCC7CD500033C88 /* LaunchScreen.storyboard */,
 				E46BD5721FCC7CD500033C88 /* Info.plist */,
-				E46BD5861FCC7E4200033C88 /* GitHubApi.swift */,
 			);
 			path = CLIDemo;
 			sourceTree = "<group>";
