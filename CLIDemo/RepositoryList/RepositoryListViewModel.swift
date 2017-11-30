@@ -52,7 +52,7 @@ class RepositoryListViewModel {
         .filterSuccessfulStatusAndRedirectCodes()
         .unbox(array: GHRepository.self)
     
-    private lazy var repositoryData: Property<[GHRepository]> = Property(initial: [], then:
+    private(set) lazy var repositoryData: Property<[GHRepository]> = Property(initial: [], then:
         self.dataSignalProducer
             .flatMapError { _ -> SignalProducer<[GHRepository], NoError> in
                 return SignalProducer.empty

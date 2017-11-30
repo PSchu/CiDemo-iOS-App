@@ -13,9 +13,6 @@ import enum Result.NoError
 
 protocol RepositoryCellData {
     var name: String { get }
-    var isFork: Bool { get }
-    var hasWiki: Bool { get }
-    var hasPages: Bool { get }
 }
 
 protocol RepositoryListViewControllerViewModel {
