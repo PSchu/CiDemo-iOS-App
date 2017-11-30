@@ -16,6 +16,10 @@ extension GHRepository: RepositoryCellData {}
 
 enum RepositorySortModus {
     case mostStared
+    
+    func sortPredicate(_ lhs: GHRepository, _ rhs: GHRepository) -> Bool {
+        return lhs.numberOfStars < rhs.numberOfStars
+    }
 }
 
 enum RepositoryFilter {
@@ -50,6 +54,7 @@ class RepositoryListViewModel {
     let apiProvider: MoyaProvider<GitHubApi>
     let username: String = "PSchu"
     var filter: MutableProperty<RepositoryFilter?> = MutableProperty(nil)
+    var sortModus: MutableProperty<RepositorySortModus?> = MutableProperty(nil)
     
     private lazy var dataSignalProducer: SignalProducer<[GHRepository], AnyError> = self.apiProvider.reactive
         .request(.repositories(.user(name: self.username)))
@@ -61,12 +66,25 @@ class RepositoryListViewModel {
             .flatMapError { _ -> SignalProducer<[GHRepository], NoError> in
                 return SignalProducer.empty
             }
+    )
+    
+    var filteredData: Property<[GHRepository]> {
+        return repositoryData
             .combineLatest(with: filter)
             .map({ (reps, filter) -> [GHRepository] in
                 guard let filter = filter else { return reps }
                 return reps.filter(filter.repConforms)
             })
-    )
+    }
+    
+    var sortedAndFilterdData: Property<[GHRepository]> {
+        return filteredData
+            .combineLatest(with: sortModus)
+            .map({ (reps, sortModus) -> [GHRepository] in
+                guard let sortModus = sortModus else { return reps }
+                return reps.sorted(by: sortModus.sortPredicate)
+            })
+    }
     
     init(apiProvider: MoyaProvider<GitHubApi> = GitHubApiProvider()) {
         self.apiProvider = apiProvider
@@ -79,11 +97,11 @@ extension RepositoryListViewModel: RepositoryListViewControllerViewModel {
     }
     
     func setSortModus(_ sortModus: RepositorySortModus?) {
-        
+        self.sortModus.value = sortModus
     }
     
     var data: Property<[RepositoryCellData]> {
-        return repositoryData.map { $0 as [RepositoryCellData] }
+        return sortedAndFilterdData.map { $0 as [RepositoryCellData] }
     }
     
     var title: String {

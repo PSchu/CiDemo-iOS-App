@@ -54,33 +54,33 @@ class RepositoryListViewModelSpecs: QuickSpec {
                 let viewModel = RepositoryListViewModel(apiProvider: GitHubApiImediateMockProvider())
                 it("to only show not forked repositories") {
                     viewModel.setFilter(.notForked)
-                    expect(viewModel.repositoryData.value).toNot(beEmpty())
-                    expect(viewModel.repositoryData.value).toNot(containElementSatisfying({ $0.isFork }))
+                    expect(viewModel.filteredData.value).toNot(beEmpty())
+                    expect(viewModel.filteredData.value).toNot(containElementSatisfying({ $0.isFork }))
                 }
                 
                 it("to only show repositories with Wiki's") {
                     viewModel.setFilter(.hasWiki)
-                    expect(viewModel.repositoryData.value).toNot(beEmpty())
-                    expect(viewModel.repositoryData.value).toNot(containElementSatisfying({ !$0.hasWiki }))
+                    expect(viewModel.filteredData.value).toNot(beEmpty())
+                    expect(viewModel.filteredData.value).toNot(containElementSatisfying({ !$0.hasWiki }))
                 }
                 
                 it("to only show repositories with Pages") {
                     viewModel.setFilter(.hasPages)
-                    expect(viewModel.repositoryData.value).toNot(beEmpty())
-                    expect(viewModel.repositoryData.value).toNot(containElementSatisfying({ !$0.hasPages }))
+                    expect(viewModel.filteredData.value).toNot(beEmpty())
+                    expect(viewModel.filteredData.value).toNot(containElementSatisfying({ !$0.hasPages }))
                 }
                 
                 it("an reset it to show all") {
                     viewModel.setFilter(nil)
-                    expect(viewModel.repositoryData.value.count).to(equal(self.testRepos.count))
+                    expect(viewModel.filteredData.value.count).to(equal(self.testRepos.count))
                 }
             }
             context("can sort its data") {
                 let viewModel = RepositoryListViewModel(apiProvider: GitHubApiImediateMockProvider())
                 it("after the most starred") {
                     viewModel.setSortModus(.mostStared)
-                    for (index, higherStarCountRep) in viewModel.repositoryData.value.enumerated() {
-                        for (secondIndex, lowerStarCountRep) in viewModel.repositoryData.value.enumerated() where secondIndex < index {
+                    for (index, higherStarCountRep) in viewModel.sortedAndFilterdData.value.enumerated() {
+                        for (secondIndex, lowerStarCountRep) in viewModel.sortedAndFilterdData.value.enumerated() where secondIndex < index {
                             expect(higherStarCountRep.numberOfStars).to(beGreaterThanOrEqualTo(lowerStarCountRep.numberOfStars))
                         }
                     }
