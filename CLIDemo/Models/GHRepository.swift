@@ -12,7 +12,7 @@ import Unbox
 struct GHRepository: Unboxable {
     let id: Int
     let name: String
-    let description: String
+    let description: String?
     let isFork: Bool
     let hasWiki: Bool
     let hasPages: Bool
@@ -25,7 +25,7 @@ struct GHRepository: Unboxable {
     init(unboxer: Unboxer) throws {
         id = try unboxer.unbox(key: "id")
         name = try unboxer.unbox(key: "name")
-        description = try unboxer.unbox(key: "description")
+        description = try? unboxer.unbox(key: "description")
         isFork = try unboxer.unbox(key: "fork")
         hasWiki = try unboxer.unbox(key: "has_wiki")
         hasPages = try unboxer.unbox(key: "has_pages")

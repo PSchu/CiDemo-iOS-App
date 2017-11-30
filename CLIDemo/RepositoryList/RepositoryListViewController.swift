@@ -19,6 +19,8 @@ protocol RepositoryListViewControllerViewModel {
     var data: Property<[RepositoryCellData]> { get }
     var title: String { get }
     func setFilter(_ filter: RepositoryFilter?)
+    func setSortModus(_ sortModus: RepositorySortModus?)
+    func openDetailView(at indexPath: IndexPath, on controller: UIViewController)
 }
 
 class RepositoryListViewController: UITableViewController {
@@ -38,6 +40,7 @@ class RepositoryListViewController: UITableViewController {
         self.tableView.reactive.reloadData <~ viewModel.data.signal.skip(while: { $0.isEmpty } ).map( { _ in ()} )
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(showFilterOptions))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Sort", style: .plain, target: self, action: #selector(showSortingOptions))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,13 +52,28 @@ class RepositoryListViewController: UITableViewController {
         sheet.addAction(alertAction(for: .notForked))
         sheet.addAction(alertAction(for: .hasWiki))
         sheet.addAction(alertAction(for: .hasPages))
-        sheet.addAction(alertAction(for: nil))
+        sheet.addAction(alertAction(for: nil as RepositoryFilter?))
+        present(sheet, animated: true, completion: nil)
+    }
+    
+    @objc func showSortingOptions() {
+        let sheet = UIAlertController(title: "Sort", message: nil, preferredStyle: .actionSheet)
+        sheet.addAction(alertAction(for: .mostForked))
+        sheet.addAction(alertAction(for: .mostStarred))
+        sheet.addAction(alertAction(for: .mostWatched))
+        sheet.addAction(alertAction(for: nil as RepositorySortModus?))
         present(sheet, animated: true, completion: nil)
     }
     
     func alertAction(for repFilter: RepositoryFilter?) -> UIAlertAction {
         return UIAlertAction(title: repFilter?.title ?? "No Filter", style: UIAlertActionStyle.default, handler: { [viewModel] _ in
             viewModel.setFilter(repFilter)
+        })
+    }
+    
+    func alertAction(for repSortModus: RepositorySortModus?) -> UIAlertAction {
+        return UIAlertAction(title: repSortModus?.title ?? "No Sorting", style: UIAlertActionStyle.default, handler: { [viewModel] _ in
+            viewModel.setSortModus(repSortModus)
         })
     }
     
@@ -71,5 +89,10 @@ class RepositoryListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: RepositoryTableViewCell.reuseIdentifier, for: indexPath)
         cell.textLabel?.text = viewModel.data.value[indexPath.item].name
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel.openDetailView(at: indexPath, on: self)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

@@ -83,7 +83,8 @@ class RepositoryListViewModel {
     
     private(set) lazy var repositoryData: Property<[GHRepository]> = Property(initial: [], then:
         self.dataSignalProducer
-            .flatMapError { _ -> SignalProducer<[GHRepository], NoError> in
+            .flatMapError { error -> SignalProducer<[GHRepository], NoError> in
+                print(error)
                 return SignalProducer.empty
             }
     )
@@ -126,5 +127,9 @@ extension RepositoryListViewModel: RepositoryListViewControllerViewModel {
     
     var title: String {
         return "Repositories of: \(self.username)"
+    }
+    
+    func openDetailView(at indexPath: IndexPath, on controller: UIViewController) {
+        controller.navigationController?.show(RepositoryDetailViewController(model: sortedAndFilterdData.value[indexPath.row]), sender: nil)
     }
 }
