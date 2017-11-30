@@ -101,6 +101,12 @@ class RepositoryListViewModelSpecs: QuickSpec {
                         }
                     }
                 }
+                it("and reset the sorting") {
+                    viewModel.setSortModus(nil)
+                    for (lhs, rhs) in zip(viewModel.sortedAndFilterdData.value, self.testRepos) {
+                        expect(lhs.name).to(equal(rhs.name))
+                    }
+                }
             }
         }
     }
