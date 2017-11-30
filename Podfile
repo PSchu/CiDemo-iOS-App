@@ -20,6 +20,9 @@ target 'CLIDemo' do
   # Utils
   pod 'Unbox'
 
+  # Linting
+  pod 'SwiftLint'
+  
   target 'CLIDemoTests' do
     inherit! :search_paths
     pod 'Nimble'

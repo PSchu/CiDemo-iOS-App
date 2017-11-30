@@ -21,7 +21,7 @@ public extension SignalProducerProtocol where Value: Moya.Response {
             }
             .dematerialize()
     }
-    
+
     public func unbox<T: Unboxable>(object: T.Type, atKey: String) -> SignalProducer<T, AnyError> {
         return producer
             .materialize()
@@ -30,7 +30,7 @@ public extension SignalProducerProtocol where Value: Moya.Response {
             }
             .dematerialize()
     }
-    
+
     public func unbox<T: Unboxable>(object: T.Type, atKeyPath: String) -> SignalProducer<T, AnyError> {
         return producer
             .materialize()
@@ -39,7 +39,7 @@ public extension SignalProducerProtocol where Value: Moya.Response {
             }
             .dematerialize()
     }
-    
+
     public func unbox<T: Unboxable>(array: T.Type) -> SignalProducer<[T], AnyError> {
         return producer
             .materialize()
@@ -48,7 +48,7 @@ public extension SignalProducerProtocol where Value: Moya.Response {
             }
             .dematerialize()
     }
-    
+
     public func unbox<T: Unboxable>(array: T.Type, atKey: String) -> SignalProducer<[T], AnyError> {
         return producer
             .materialize()
@@ -57,7 +57,7 @@ public extension SignalProducerProtocol where Value: Moya.Response {
             }
             .dematerialize()
     }
-    
+
     public func unbox<T: Unboxable>(array: T.Type, atKeyPath: String) -> SignalProducer<[T], AnyError> {
         return producer
             .materialize()
@@ -68,8 +68,9 @@ public extension SignalProducerProtocol where Value: Moya.Response {
     }
 }
 
-private func unwrapThrowable<T, Response: Moya.Response, Error>(event: ReactiveSwift.Signal<Response, Error>.Event,
-                                                                _ throwable: (Response) throws -> T) -> ReactiveSwift.Signal<T, AnyError>.Event {
+private func unwrapThrowable<T, Response: Moya.Response, Error>(
+    event: ReactiveSwift.Signal<Response, Error>.Event,
+    _ throwable: (Response) throws -> T) -> ReactiveSwift.Signal<T, AnyError>.Event {
     switch event {
     case .value(let response):
         do {
@@ -85,4 +86,3 @@ private func unwrapThrowable<T, Response: Moya.Response, Error>(event: ReactiveS
         return .interrupted
     }
 }
-

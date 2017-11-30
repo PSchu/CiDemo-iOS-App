@@ -27,7 +27,7 @@ public extension UnboxableCollection {
         }
 
         if let unboxableType = UnboxValue.self as? Unboxable.Type {
-            let transformer = UnboxCollectionElementClosureTransformer<UnboxableDictionary, UnboxValue>() { element in
+            let transformer = UnboxCollectionElementClosureTransformer<UnboxableDictionary, UnboxValue> { element in
                 let unboxer = Unboxer(dictionary: element)
                 return try unboxableType.init(unboxer: unboxer) as? UnboxValue
             }
@@ -36,7 +36,7 @@ public extension UnboxableCollection {
         }
 
         if let unboxCompatibleType = UnboxValue.self as? UnboxCompatible.Type {
-            let transformer = UnboxCollectionElementClosureTransformer<Any, UnboxValue>() { element in
+            let transformer = UnboxCollectionElementClosureTransformer<Any, UnboxValue> { element in
                 return try unboxCompatibleType.unbox(value: element, allowInvalidCollectionElements: allowInvalidCollectionElements) as? UnboxValue
             }
 

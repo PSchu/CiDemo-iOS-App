@@ -10,7 +10,7 @@ import Foundation
 import Unbox
 
 struct GHRepository: Unboxable {
-    let id: Int
+    let identifier: Int
     let name: String
     let description: String?
     let isFork: Bool
@@ -20,10 +20,9 @@ struct GHRepository: Unboxable {
     let numberOfStars: Int
     let numberOfForks: Int
     let numberOfWatchers: Int
-    
-    
+
     init(unboxer: Unboxer) throws {
-        id = try unboxer.unbox(key: "id")
+        identifier = try unboxer.unbox(key: "id")
         name = try unboxer.unbox(key: "name")
         description = try? unboxer.unbox(key: "description")
         isFork = try unboxer.unbox(key: "fork")

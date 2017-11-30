@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 extension UILabel {
-    convenience init(text: String, textStyle: UIFontTextStyle) {
+    convenience init(text: String, textStyle: UIFontTextStyle = .body) {
         self.init()
         self.text = text
         self.font = .preferredFont(forTextStyle: textStyle)
@@ -20,34 +20,37 @@ extension UILabel {
 
 class RepositoryDetailViewController: UIViewController {
     let model: GHRepository
-    
+
     private(set) lazy var titleLabel: UILabel = UILabel(text: model.name, textStyle: .title1)
-    private(set) lazy var descriptionLabel: UILabel = UILabel(text: model.description ?? "No description available", textStyle: .body)
-    
-    private(set) lazy var numberOfStarsLabel: UILabel = UILabel(text: "Number of Stars: \(model.numberOfStars)", textStyle: .body)
-    private(set) lazy var numberOfForksLabel: UILabel = UILabel(text: "Number of Forks: \(model.numberOfForks)", textStyle: .body)
-    private(set) lazy var numberOfWatchersLabel: UILabel = UILabel(text: "Number of Watchers: \(model.numberOfWatchers)", textStyle: .body)
-    
-    let stackView : UIStackView = {
+    private(set) lazy var descriptionLabel: UILabel = UILabel(text: model.description ?? "No description available")
+
+    private(set) lazy var numOfStarsLabel: UILabel = UILabel(text: "Number of Stars: \(model.numberOfStars)")
+    private(set) lazy var numOfForksLabel: UILabel = UILabel(text: "Number of Forks: \(model.numberOfForks)")
+    private(set) lazy var numOfWatchersLabel: UILabel = UILabel(text: "Number of Watchers: \(model.numberOfWatchers)")
+
+    let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.spacing = 20
         return view
     }()
-    
+
     init(model: GHRepository) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
         navigationController?.navigationBar.isTranslucent = false
         title = model.name
         view.backgroundColor = .white
-        [titleLabel, descriptionLabel, numberOfStarsLabel, numberOfForksLabel, numberOfWatchersLabel].forEach(stackView.addArrangedSubview(_:))
+        [titleLabel, descriptionLabel, numOfStarsLabel, numOfForksLabel, numOfWatchersLabel]
+            .forEach(stackView.addArrangedSubview(_:))
         view.addSubview(stackView)
         stackView.snp.makeConstraints { make in
-            make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
+            make.top.leading.trailing
+                .equalTo(view.safeAreaLayoutGuide)
+                .inset(UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20))
         }
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

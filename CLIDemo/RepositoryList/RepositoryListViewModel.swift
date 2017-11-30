@@ -18,7 +18,7 @@ enum RepositorySortModus {
     case mostStarred
     case mostWatched
     case mostForked
-    
+
     func sortPredicate(_ lhs: GHRepository, _ rhs: GHRepository) -> Bool {
         switch self {
         case .mostForked:
@@ -29,7 +29,7 @@ enum RepositorySortModus {
             return lhs.numberOfWatchers > rhs.numberOfWatchers
         }
     }
-    
+
     var title: String {
         switch self {
         case .mostForked:
@@ -46,7 +46,7 @@ enum RepositoryFilter {
     case notForked
     case hasWiki
     case hasPages
-    
+
     func repConforms(_ rep: GHRepository) -> Bool {
         switch self {
         case .notForked:
@@ -57,7 +57,7 @@ enum RepositoryFilter {
             return rep.hasPages
         }
     }
-    
+
     var title: String {
         switch self {
         case .notForked:
@@ -75,12 +75,12 @@ class RepositoryListViewModel {
     let username: String = "krzysztofzablocki"
     var filter: MutableProperty<RepositoryFilter?> = MutableProperty(nil)
     var sortModus: MutableProperty<RepositorySortModus?> = MutableProperty(nil)
-    
+
     private lazy var dataSignalProducer: SignalProducer<[GHRepository], AnyError> = self.apiProvider.reactive
         .request(.repositories(.user(name: self.username)))
         .filterSuccessfulStatusAndRedirectCodes()
         .unbox(array: GHRepository.self)
-    
+
     private(set) lazy var repositoryData: Property<[GHRepository]> = Property(initial: [], then:
         self.dataSignalProducer
             .flatMapError { error -> SignalProducer<[GHRepository], NoError> in
@@ -88,7 +88,7 @@ class RepositoryListViewModel {
                 return SignalProducer.empty
             }
     )
-    
+
     var filteredData: Property<[GHRepository]> {
         return repositoryData
             .combineLatest(with: filter)
@@ -97,7 +97,7 @@ class RepositoryListViewModel {
                 return reps.filter(filter.repConforms)
             })
     }
-    
+
     var sortedAndFilterdData: Property<[GHRepository]> {
         return filteredData
             .combineLatest(with: sortModus)
@@ -106,7 +106,7 @@ class RepositoryListViewModel {
                 return reps.sorted(by: sortModus.sortPredicate)
             })
     }
-    
+
     init(apiProvider: MoyaProvider<GitHubApi> = GitHubApiProvider()) {
         self.apiProvider = apiProvider
     }
@@ -116,20 +116,21 @@ extension RepositoryListViewModel: RepositoryListViewControllerViewModel {
     func setFilter(_ filter: RepositoryFilter?) {
         self.filter.value = filter
     }
-    
+
     func setSortModus(_ sortModus: RepositorySortModus?) {
         self.sortModus.value = sortModus
     }
-    
+
     var data: Property<[RepositoryCellData]> {
         return sortedAndFilterdData.map { $0 as [RepositoryCellData] }
     }
-    
+
     var title: String {
         return "Repositories of: \(self.username)"
     }
-    
+
     func openDetailView(at indexPath: IndexPath, on controller: UIViewController) {
-        controller.navigationController?.show(RepositoryDetailViewController(model: sortedAndFilterdData.value[indexPath.row]), sender: nil)
+        let viewController = RepositoryDetailViewController(model: sortedAndFilterdData.value[indexPath.row])
+        controller.navigationController?.show(viewController, sender: nil)
     }
 }

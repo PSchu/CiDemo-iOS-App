@@ -69,8 +69,7 @@ extension BindingTargetProvider {
 	public static func <~
 		<Source: BindingSource>
 		(provider: Self, source: Source) -> Disposable?
-		where Source.Value == Value, Source.Error == NoError
-	{
+		where Source.Value == Value, Source.Error == NoError {
 		return source.producer
 			.take(during: provider.bindingTarget.lifetime)
 			.startWithValues(provider.bindingTarget.action)
@@ -109,8 +108,7 @@ extension BindingTargetProvider {
 	public static func <~
 		<Source: BindingSource>
 		(provider: Self, source: Source) -> Disposable?
-		where Value == Source.Value?, Source.Error == NoError
-	{
+		where Value == Source.Value?, Source.Error == NoError {
 		return provider <~ source.producer.optionalize()
 	}
 }

@@ -284,7 +284,7 @@ internal struct PropertyAttributes {
 		// if this is an object type, and immediately followed by a quoted string...
 		if typeString[0] == Code.ContainingType.object && typeString[1] == Code.quote {
 			// we should be able to extract a class name
-			let className = typeString + 2;
+			let className = typeString + 2
 
 			// fast forward the `next` pointer.
 			guard let endQuote = strchr(className, Int32(Code.quote)) else {
@@ -326,19 +326,19 @@ internal struct PropertyAttributes {
 
 			switch flag {
 			case Code.nul:
-				break;
+				break
 
 			case Code.Attribute.readonly:
-				break;
+				break
 
 			case Code.Attribute.copy:
-				break;
+				break
 
 			case Code.Attribute.retain:
-				break;
+				break
 
 			case Code.Attribute.nonatomic:
-				break;
+				break
 
 			case Code.Attribute.getter:
 				fallthrough

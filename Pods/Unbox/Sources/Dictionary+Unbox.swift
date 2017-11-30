@@ -54,7 +54,7 @@ extension Dictionary: UnboxPathNode {
 
 private extension Dictionary {
     func map<K, V>(allowInvalidElements: Bool, transform: (Key, Value) throws -> (K, V)?) throws -> [K : V]? {
-        var transformedDictionary = [K : V]()
+        var transformedDictionary = [K: V]()
 
         for (key, value) in self {
             do {

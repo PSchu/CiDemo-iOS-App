@@ -14,7 +14,7 @@ public final class CocoaAction<Sender>: NSObject {
 	///
 	/// This property will only change on the main thread.
 	public let isEnabled: Property<Bool>
-	
+
 	/// Whether the action is executing.
 	///
 	/// This property will only change on the main thread.
@@ -50,7 +50,7 @@ public final class CocoaAction<Sender>: NSObject {
 	public convenience init<Output, Error>(_ action: Action<(), Output, Error>) {
 		self.init(action, { _ in })
 	}
-	
+
 	/// Initialize a CocoaAction that invokes the given Action with the given
 	/// constant.
 	///

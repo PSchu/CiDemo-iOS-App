@@ -483,8 +483,7 @@ extension Signal {
 	///
 	/// - parameters:
 	///   - signals: A sequence of signals to merge.
-	public static func merge<Seq: Sequence>(_ signals: Seq) -> Signal<Value, Error> where Seq.Iterator.Element == Signal<Value, Error>
-	{
+	public static func merge<Seq: Sequence>(_ signals: Seq) -> Signal<Value, Error> where Seq.Iterator.Element == Signal<Value, Error> {
 		return SignalProducer<Signal<Value, Error>, Error>(signals)
 			.flatten(.merge)
 			.startAndRetrieveSignal()
@@ -507,8 +506,7 @@ extension SignalProducer {
 	///
 	/// - parameters:
 	///   - producers: A sequence of producers to merge.
-	public static func merge<Seq: Sequence>(_ producers: Seq) -> SignalProducer<Value, Error> where Seq.Iterator.Element == SignalProducer<Value, Error>
-	{
+	public static func merge<Seq: Sequence>(_ producers: Seq) -> SignalProducer<Value, Error> where Seq.Iterator.Element == SignalProducer<Value, Error> {
 		return SignalProducer<Seq.Iterator.Element, NoError>(producers).flatten(.merge)
 	}
 

@@ -13,6 +13,7 @@
 		E411C8E01FCD826700AC6166 /* Response+Unbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = E411C8DF1FCD826700AC6166 /* Response+Unbox.swift */; };
 		E445B6DF1FCF3D1400175237 /* RepositoryListViewModelSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = E411C8E11FCDDA4500AC6166 /* RepositoryListViewModelSpecs.swift */; };
 		E45CF5F91FD07329005AF92F /* RepositoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45CF5F81FD07329005AF92F /* RepositoryDetailViewController.swift */; };
+		E45CF5FC1FD0B1EA005AF92F /* ReposEndpointSampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45CF5FB1FD0B1EA005AF92F /* ReposEndpointSampleData.swift */; };
 		E46BD5671FCC7CD500033C88 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E46BD5661FCC7CD500033C88 /* AppDelegate.swift */; };
 		E46BD56E1FCC7CD500033C88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E46BD56D1FCC7CD500033C88 /* Assets.xcassets */; };
 		E46BD5711FCC7CD500033C88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E46BD56F1FCC7CD500033C88 /* LaunchScreen.storyboard */; };
@@ -45,6 +46,7 @@
 		E411C8DF1FCD826700AC6166 /* Response+Unbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+Unbox.swift"; sourceTree = "<group>"; };
 		E411C8E11FCDDA4500AC6166 /* RepositoryListViewModelSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListViewModelSpecs.swift; sourceTree = "<group>"; };
 		E45CF5F81FD07329005AF92F /* RepositoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailViewController.swift; sourceTree = "<group>"; };
+		E45CF5FB1FD0B1EA005AF92F /* ReposEndpointSampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReposEndpointSampleData.swift; sourceTree = "<group>"; };
 		E46BD5631FCC7CD500033C88 /* CLIDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CLIDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E46BD5661FCC7CD500033C88 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E46BD56D1FCC7CD500033C88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				E46BD5861FCC7E4200033C88 /* GitHubApi.swift */,
+				E45CF5FB1FD0B1EA005AF92F /* ReposEndpointSampleData.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 			buildConfigurationList = E46BD5801FCC7CD500033C88 /* Build configuration list for PBXNativeTarget "CLIDemo" */;
 			buildPhases = (
 				2C0AC8CA5EB67255CD34646A /* [CP] Check Pods Manifest.lock */,
+				E45CF5FA1FD0AF25005AF92F /* ShellScript */,
 				E46BD55F1FCC7CD500033C88 /* Sources */,
 				E46BD5601FCC7CD500033C88 /* Frameworks */,
 				E46BD5611FCC7CD500033C88 /* Resources */,
@@ -371,6 +375,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CLIDemo/Pods-CLIDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E45CF5FA1FD0AF25005AF92F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n\"${PODS_ROOT}/SwiftLint/swiftlint\"\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
 		E642C00CE231E3D9D763BF2B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -424,6 +441,7 @@
 				E411C8E01FCD826700AC6166 /* Response+Unbox.swift in Sources */,
 				E46BD58E1FCCC7ED00033C88 /* RepositoryListViewController.swift in Sources */,
 				E46BD5911FCCC80400033C88 /* GHRepository.swift in Sources */,
+				E45CF5FC1FD0B1EA005AF92F /* ReposEndpointSampleData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

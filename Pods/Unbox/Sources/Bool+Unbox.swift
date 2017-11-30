@@ -16,7 +16,7 @@ extension Bool: UnboxableRawType {
         switch unboxedString.lowercased() {
         case "true", "t", "y", "yes":
             return true
-        case "false", "f" , "n", "no":
+        case "false", "f", "n", "no":
             return false
         default:
             return nil

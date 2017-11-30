@@ -1875,13 +1875,13 @@ extension SignalProducer {
 	/// - returns: A signal producer that restarts up to `count` times.
 	public func retry(upTo count: Int, interval: TimeInterval, on scheduler: DateScheduler) -> SignalProducer<Value, Error> {
 		precondition(count >= 0)
-		
+
 		if count == 0 {
 			return producer
 		}
-		
+
 		var retries = count
-		
+
 		return flatMapError { error in
 				// The final attempt shouldn't defer the error if it fails
 				var producer = SignalProducer<Value, Error>(error: error)
@@ -1890,13 +1890,13 @@ extension SignalProducer {
 						.delay(interval, on: scheduler)
 						.concat(producer)
 				}
-			
+
 				retries -= 1
 				return producer
 			}
 			.retry(upTo: count)
 	}
-	
+
 	/// Wait for completion of `self`, *then* forward all events from
 	/// `replacement`. Any failure or interruption sent from `self` is
 	/// forwarded immediately, in which case `replacement` will not be started,

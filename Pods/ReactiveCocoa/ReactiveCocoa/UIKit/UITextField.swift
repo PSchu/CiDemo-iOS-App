@@ -22,17 +22,17 @@ extension Reactive where Base: UITextField {
 	public var continuousTextValues: Signal<String?, NoError> {
 		return mapControlEvents(.allEditingEvents) { $0.text }
 	}
-	
+
 	/// Sets the attributed text of the text field.
 	public var attributedText: BindingTarget<NSAttributedString?> {
 		return makeBindingTarget { $0.attributedText = $1 }
 	}
-	
+
 	/// Sets the textColor of the text field.
 	public var textColor: BindingTarget<UIColor> {
 		return makeBindingTarget { $0.textColor = $1 }
 	}
-	
+
 	/// A signal of attributed text values emitted by the text field upon end of editing.
 	///
 	/// - note: To observe attributed text values that change on all editing events,
@@ -40,7 +40,7 @@ extension Reactive where Base: UITextField {
 	public var attributedTextValues: Signal<NSAttributedString?, NoError> {
 		return mapControlEvents([.editingDidEnd, .editingDidEndOnExit]) { $0.attributedText }
 	}
-	
+
 	/// A signal of attributed text values emitted by the text field upon any changes.
 	///
 	/// - note: To observe attributed text values only when editing ends, see `attributedTextValues`.

@@ -40,5 +40,5 @@ extension Reactive where Base: UISearchBar {
 		return proxy.intercept(#selector(UISearchBarDelegate.searchBar(_:textDidChange:)))
 			.map { [unowned base] in base.text }
 	}
-	
+
 }

@@ -4,7 +4,6 @@
  *  Licensed under the MIT license, see LICENSE file
  */
 
-
 import Foundation
 
 /// Extension making `DateFormatter` usable as an UnboxFormatter
