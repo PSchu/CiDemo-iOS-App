@@ -8,7 +8,7 @@
 
 import Quick
 import Nimble
-@testable import CLIDemo
+@testable import CIDemo
 import Moya
 import ReactiveCocoa
 import ReactiveSwift
