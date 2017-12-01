@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E46BD5621FCC7CD500033C88"
-               BuildableName = "CLIDemo.app"
-               BlueprintName = "CLIDemo"
-               ReferencedContainer = "container:CLIDemo.xcodeproj">
+               BuildableName = "CIDemo.app"
+               BlueprintName = "CIDemo"
+               ReferencedContainer = "container:CIDemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,24 +29,14 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E46BD5761FCC7CD500033C88"
-               BuildableName = "CLIDemoTests.xctest"
-               BlueprintName = "CLIDemoTests"
-               ReferencedContainer = "container:CLIDemo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E46BD5621FCC7CD500033C88"
-            BuildableName = "CLIDemo.app"
-            BlueprintName = "CLIDemo"
-            ReferencedContainer = "container:CLIDemo.xcodeproj">
+            BuildableName = "CIDemo.app"
+            BlueprintName = "CIDemo"
+            ReferencedContainer = "container:CIDemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -68,9 +58,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E46BD5621FCC7CD500033C88"
-            BuildableName = "CLIDemo.app"
-            BlueprintName = "CLIDemo"
-            ReferencedContainer = "container:CLIDemo.xcodeproj">
+            BuildableName = "CIDemo.app"
+            BlueprintName = "CIDemo"
+            ReferencedContainer = "container:CIDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -87,9 +77,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E46BD5621FCC7CD500033C88"
-            BuildableName = "CLIDemo.app"
-            BlueprintName = "CLIDemo"
-            ReferencedContainer = "container:CLIDemo.xcodeproj">
+            BuildableName = "CIDemo.app"
+            BlueprintName = "CIDemo"
+            ReferencedContainer = "container:CIDemo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

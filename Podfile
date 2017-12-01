@@ -3,7 +3,7 @@ platform :ios, '8.1'
 source 'https://github.com/CocoaPods/Specs.git'
 
 
-target 'CLIDemo' do
+target 'CIDemo' do
   use_frameworks!
 
   # Network
@@ -23,7 +23,7 @@ target 'CLIDemo' do
   # Linting
   pod 'SwiftLint'
   
-  target 'CLIDemoTests' do
+  target 'CIDemoTests' do
     inherit! :search_paths
     pod 'Nimble'
     pod 'Quick'

@@ -1,0 +1,6 @@
+framework module Pods_CIDemo {
+  umbrella header "Pods-CIDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}
